@@ -20,7 +20,7 @@ class TestDirectoryHierarchyModificationTime < Minitest::Test
 			FileUtils.touch '/my_directory/some_cool/files_here/my_file.txt', mtime: expected
 			FileUtils.touch '/my_directory/some_cool/README.md', mtime: (expected - 100)
 
-			actual = DirectoryHierarchyModificationTime.modification_time '/my_directory'
+			actual = BackupMonitor::DirectoryHierarchyModificationTime.modification_time '/my_directory'
 		end
 
 		assert_equal expected, actual, 'The modification time returned was incorrect'
@@ -39,7 +39,7 @@ class TestDirectoryHierarchyModificationTime < Minitest::Test
 			FileUtils.mkdir '/my_directory2/some_cool'
 			FileUtils.mkdir '/my_directory2/some_cool/files_here'
 
-			actual = DirectoryHierarchyModificationTime.modification_time '/my_directory2'
+			actual = BackupMonitor::DirectoryHierarchyModificationTime.modification_time '/my_directory2'
 		end
 
 		assert_nil actual, 'The modification time returned was not nil and should have been'
