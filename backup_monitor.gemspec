@@ -1,6 +1,6 @@
 # coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+lib = File.expand_path '../lib', __FILE__
+$LOAD_PATH.unshift lib unless $LOAD_PATH.include? lib
 require 'backup_monitor/version'
 
 Gem::Specification.new do |spec|
@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
 	spec.version       = BackupMonitor::VERSION
 	spec.authors       = ['Aaron Ten Clay']
 	spec.email         = ['backup_monitor_gem@aarontc.com']
-	spec.summary       = %q{TODO: Write a short summary. Required.}
-	spec.description   = %q{TODO: Write a longer description. Optional.}
+	spec.summary       = %q{Checks the modification age of a directory hierarchy to locate stale backups.}
+	spec.description   = spec.summary
 	spec.homepage      = 'https://github.com/AaronTC/backup_monitor'
 	spec.license       = 'MIT'
 
@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
 	spec.test_files    = spec.files.grep %r{^(test|spec|features)/}
 	spec.require_paths = %w[lib]
 
-	%w[coalesce].each do |gem|
+	%w[coalesce thor].each do |gem|
 		spec.add_dependency gem
 	end
 

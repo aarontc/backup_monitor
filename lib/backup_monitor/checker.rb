@@ -16,7 +16,12 @@ module BackupMonitor
 				next if %w[. ..].include? d
 				next unless File.directory? full_path
 				dir_mtime = DirectoryHierarchyModificationTime.modification_time full_path
-				result[full_path] = dir_mtime if (Time.now - dir_mtime).to_i > @warning_threshold
+				if dir_mtime.nil?
+					# No files in the tree
+					result[full_path] = Time.at(0)
+				else
+					result[full_path] = dir_mtime if (Time.now - dir_mtime).to_i > @warning_threshold
+				end
 			end
 			result
 		end

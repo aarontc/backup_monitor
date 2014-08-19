@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'backup_monitor/cli'
+BackupMonitor::CLI.start
