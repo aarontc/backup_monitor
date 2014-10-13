@@ -1,8 +1,14 @@
+require 'logger'
 require 'thor'
 require 'backup_monitor/checker'
 
 module BackupMonitor
 	class CLI < Thor
+		def initialize
+			$logger = Logger.new
+			$logger.level = Logger::INFO
+		end
+
 
 		desc 'check', 'Checks a directory of directories for modification times'
 		method_option :threshold, aliases: '-t', desc: 'Warning threshold, in seconds', type: :numeric, default: 300

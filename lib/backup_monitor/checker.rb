@@ -9,19 +9,22 @@ module BackupMonitor
 		end
 
 		def check(path)
+			mtime_checker = DirectoryHierarchyModificationTime.new
 			pathname = real_path path
 			result = {}
 			Dir[pathname.join('*')].each do |d|
 				full_path = pathname.join d
 				next if %w[. ..].include? d
 				next unless File.directory? full_path
-				dir_mtime = DirectoryHierarchyModificationTime.modification_time full_path
+				dir_mtime = mtime_checker.get_newest_modification_time full_path
 				if dir_mtime.nil?
 					# No files in the tree
 					result[full_path] = Time.at(0)
 				else
 					result[full_path] = dir_mtime if (Time.now - dir_mtime).to_i > @warning_threshold
 				end
+
+				mtime_checker.exceptions.each {|e| $logger.warn "get_newest_modification_time: Exception '#{e.message}'" } unless $logger.nil
 			end
 			result
 		end
